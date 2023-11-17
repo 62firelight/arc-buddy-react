@@ -12,7 +12,17 @@ export default function Search(props) {
         e.preventDefault();
 
         if (name.length > 0) {
-            props.searchName(name);
+            const nameIdArray = name.split("#", 2);
+
+            if (nameIdArray == undefined || nameIdArray.length != 2) {
+                props.setError(`Error occurred when parsing Bungie Name. A Bungie Name should formatted similarly to "name#1234".`);
+                return;
+            }
+
+            const bName = nameIdArray[0];
+            const bId = nameIdArray[1];
+
+            props.findBungieName(bName, bId);
             setName("");
         }
     }
