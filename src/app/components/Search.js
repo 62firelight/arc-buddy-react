@@ -22,8 +22,9 @@ export default function Search(props) {
             const bName = nameIdArray[0];
             const bId = nameIdArray[1];
 
-            props.findBungieName(bName, bId);
+            props.searchBungieName(bName, bId);
             setName("");
+            props.setError("");
         }
     }
 
