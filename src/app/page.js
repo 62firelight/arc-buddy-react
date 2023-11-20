@@ -27,11 +27,17 @@ export default function Home() {
         return response;
     }
 
+    // Search function
     async function searchBungieName(name, id) {
         const getBungieNameResponse = await getBungieName(name, id);
+
+        let membershipType = undefined;
+        let membershipId = undefined;
         try {
             const body = await getBungieNameResponse.json();
             setProfile(body);
+            membershipType = body.membershipType;
+            membershipId = body.membershipId;
         } catch (error) {
             const status = await getBungieNameResponse.status;
             console.log(error);
@@ -42,8 +48,8 @@ export default function Home() {
         }
 
         const getCharactersResponse = await getCharacters(
-            profile.membershipType,
-            profile.membershipId
+            membershipType,
+            membershipId
         );
         try {
             const body = await getCharactersResponse.json();
@@ -60,8 +66,8 @@ export default function Home() {
         }
 
         const getHistoricalStatsResponse = await getHistoricalStats(
-            profile.membershipType,
-            profile.membershipId
+            membershipType,
+            membershipId
         );
         try {
             const body = await getHistoricalStatsResponse.json();
