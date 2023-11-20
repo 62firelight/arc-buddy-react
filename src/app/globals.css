@@ -5,3 +5,14 @@ html, body {
 .error {
   color: red;
 }
+
+.stats {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.stat {
+  flex-basis: 20%;
+  margin: 1em;
+}
