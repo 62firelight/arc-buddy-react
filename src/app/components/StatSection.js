@@ -4,7 +4,7 @@ import { Helper } from "../Helper";
 import Stat from "./Stat";
 
 export function StatSection(props) {
-    const statList = Object.keys(props.stats).map((stat) => {
+    const statList = Array.from(props.sectionStats.keys()).map((stat) => {
         // Only show stats that are known
         if (props.sectionStats.get(stat) !== undefined) {
             return (

@@ -16,11 +16,9 @@ html, body {
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
-  /* margin: 1em; */
 }
 
 .stat {
   flex-basis: 20%;
-  padding: 1em;
-  margin: 0.5em;
+  padding: 1.5em;
 }
