@@ -14,7 +14,7 @@ export default function Stat(props) {
     }
 
     function formatName(name) {
-        return Helper.sections.get(name);
+        return props.sectionStats.get(name);
     }
 
     function formatValue(displayValue) {
@@ -37,7 +37,7 @@ export default function Stat(props) {
 
     return (
         <div className="stat">
-            <h2>{formattedName}</h2>
+            <h3>{formattedName}</h3>
             {formattedDisplayValue}
         </div>
     );

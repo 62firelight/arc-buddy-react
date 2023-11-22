@@ -8,11 +8,19 @@ html, body {
 
 .stats {
   display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+}
+
+.stat-section {
+  display: flex;
   flex-flow: row wrap;
   justify-content: center;
+  /* margin: 1em; */
 }
 
 .stat {
   flex-basis: 20%;
-  margin: 1em;
+  padding: 1em;
+  margin: 0.5em;
 }

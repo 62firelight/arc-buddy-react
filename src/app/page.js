@@ -4,6 +4,7 @@ import Search from "./components/Search";
 import _ from "lodash";
 import Stat from "./components/Stat";
 import { Helper } from "./Helper";
+import { StatSection } from "./components/StatSection";
 
 export default function Home() {
     const [profile, setProfile] = useState({});
@@ -11,21 +12,30 @@ export default function Home() {
 
     let statList = undefined;
     if (profile.mergedStats !== undefined) {
-        statList = Object.keys(profile.mergedStats).map((stat) => {
-            // Only show stats that are known
-            if (Helper.sections.get(stat) !== undefined) {
-                return (
-                    <Stat
-                        key={stat}
-                        name={stat}
-                        value={profile.mergedStats[stat].basic.value}
-                        displayValue={
-                            profile.mergedStats[stat].basic.displayValue
-                        }
-                    />
-                );
-            }
-        });
+        statList = Array.from(Helper.sections.keys()).map((section) => (
+            <StatSection
+                key={section}
+                sectionName={section}
+                sectionStats={Helper.sections.get(section)}
+                stats={profile.mergedStats}
+            />
+        ));
+
+        // statList = Object.keys(profile.mergedStats).map((stat) => {
+        //     // Only show stats that are known
+        //     if (Helper.sections.get(stat) !== undefined) {
+        //         return (
+        //             <Stat
+        //                 key={stat}
+        //                 name={stat}
+        //                 value={profile.mergedStats[stat].basic.value}
+        //                 displayValue={
+        //                     profile.mergedStats[stat].basic.displayValue
+        //                 }
+        //             />
+        //         );
+        //     }
+        // });
     }
 
     return (
