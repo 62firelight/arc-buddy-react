@@ -14,7 +14,7 @@ export default function Stat(props) {
     }
 
     function formatName(name) {
-        return props.sectionStats.get(name);
+        return props.sectionStatNames.get(name);
     }
 
     function formatValue(displayValue) {

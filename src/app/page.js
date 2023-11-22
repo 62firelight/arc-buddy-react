@@ -10,32 +10,16 @@ export default function Home() {
     const [profile, setProfile] = useState({});
     const [error, setError] = useState("");
 
-    let statList = undefined;
+    let statSectionList = undefined;
     if (profile.mergedStats !== undefined) {
-        statList = Array.from(Helper.sections.keys()).map((section) => (
+        statSectionList = Array.from(Helper.sections.keys()).map((section) => (
             <StatSection
                 key={section}
                 sectionName={section}
-                sectionStats={Helper.sections.get(section)}
+                sectionStatNames={Helper.sections.get(section)}
                 stats={profile.mergedStats}
             />
         ));
-
-        // statList = Object.keys(profile.mergedStats).map((stat) => {
-        //     // Only show stats that are known
-        //     if (Helper.sections.get(stat) !== undefined) {
-        //         return (
-        //             <Stat
-        //                 key={stat}
-        //                 name={stat}
-        //                 value={profile.mergedStats[stat].basic.value}
-        //                 displayValue={
-        //                     profile.mergedStats[stat].basic.displayValue
-        //                 }
-        //             />
-        //         );
-        //     }
-        // });
     }
 
     return (
@@ -43,7 +27,7 @@ export default function Home() {
             <h1>Arc Buddy</h1>
             <Search setProfile={setProfile} setError={setError} />
             <div className="error">{error}</div>
-            <div className="stats">{statList}</div>
+            <div className="stats">{statSectionList}</div>
         </div>
     );
 }
