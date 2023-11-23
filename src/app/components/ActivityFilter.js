@@ -11,10 +11,10 @@ export function ActivityFilter(props) {
             <select
                 name="activity-filter"
                 id="activity-filter-select"
-                defaultValue="all"
+                value={props.activityFilter}
                 onChange={handleChange}
             >
-                <option value="all">All</option>
+                <option value="all">All (PvE + PvP)</option>
                 <option value="pve">PvE</option>
                 <option value="pvp">PvP</option>
             </select>

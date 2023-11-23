@@ -7,7 +7,7 @@ import {
 } from "../endpoints/apiEndpoints";
 
 export default function Search(props) {
-    const [name, setName] = useState("62firelight#8173");
+    const [name, setName] = useState("");
 
     async function searchBungieName(name, id) {
         const getBungieNameResponse = await getBungieName(name, id);
@@ -101,8 +101,8 @@ export default function Search(props) {
             const bId = nameIdArray[1];
 
             searchBungieName(bName, bId);
-            // setName("");
-            props.setError("");
+            setName("");
+            props.reset();
         }
     }
 

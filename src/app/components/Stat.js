@@ -37,7 +37,7 @@ export default function Stat(props) {
 
     return (
         <div className="stat">
-            <h3>{formattedName}</h3>
+            <h4>{formattedName}</h4>
             {formattedDisplayValue}
         </div>
     );

@@ -30,7 +30,7 @@ export function StatSection(props) {
     } else {
         return (
             <div>
-                <h2>{props.sectionName}</h2>
+                <h3>{props.sectionName}</h3>
                 <div className="stat-section">{statList}</div>
             </div>
         );

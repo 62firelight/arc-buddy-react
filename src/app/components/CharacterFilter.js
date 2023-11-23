@@ -11,7 +11,7 @@ export function CharacterFilter(props) {
             <select
                 name="character-filter"
                 id="character-filter-select"
-                defaultValue="-1"
+                value={props.characterFilter}
                 onChange={handleChange}
             >
                 <option value="-1">All Characters</option>

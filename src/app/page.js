@@ -14,14 +14,11 @@ export default function Home() {
     const [activityFilter, setActivityFilter] = useState("all");
     const [error, setError] = useState("");
 
-    const characterList =
-        profile.characters === undefined
-            ? undefined
-            : profile.characters.map((character, index) => (
-                  <option key={character.characterId} value={index}>
-                      {character.race} {character.class}
-                  </option>
-              ));
+    function reset() {
+        setError("");
+        setCharacterFilter(-1);
+        setActivityFilter("all");
+    }
 
     function getDisplayedStats() {
         if (profile === undefined) {
@@ -60,14 +57,39 @@ export default function Home() {
         ));
     }
 
+    const characterList =
+        profile.characters === undefined
+            ? undefined
+            : profile.characters.map((character, index) => (
+                  <option key={character.characterId} value={index}>
+                      {character.race} {character.class} ({character.light})
+                  </option>
+              ));
+
+    const profileName =
+        profile.bungieGlobalDisplayName === undefined &&
+        profile.bungieGlobalDisplayNameCode === undefined
+            ? undefined
+            : profile.bungieGlobalDisplayName +
+              "#" +
+              profile.bungieGlobalDisplayNameCode;
+
     return (
         <div>
             <h1>Arc Buddy</h1>
-            <Search setProfile={setProfile} setError={setError} />
+            <Search setProfile={setProfile} reset={reset} />
             <div className="error">{error}</div>
 
-            <CharacterFilter characterList={characterList} setCharacterFilter={setCharacterFilter} />
-            <ActivityFilter setActivityFilter={setActivityFilter} />
+            <CharacterFilter
+                characterList={characterList}
+                characterFilter={characterFilter}
+                setCharacterFilter={setCharacterFilter}
+            />
+            <ActivityFilter
+                activityFilter={activityFilter}
+                setActivityFilter={setActivityFilter}
+            />
+            <h2>{profileName}</h2>
             <div className="stats">{statSectionList}</div>
         </div>
     );
