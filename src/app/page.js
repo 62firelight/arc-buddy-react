@@ -5,6 +5,7 @@ import _ from "lodash";
 import Stat from "./components/Stat";
 import { Helper } from "./Helper";
 import { StatSection } from "./components/StatSection";
+import { ActivityFilter } from "./components/ActivityFilter";
 
 export default function Home() {
     const [profile, setProfile] = useState({});
@@ -43,27 +44,13 @@ export default function Home() {
         ));
     }
 
-    function handleChange(e) {
-        setActivityFilter(e.target.value);
-    }
-
     return (
         <div>
             <h1>Arc Buddy</h1>
             <Search setProfile={setProfile} setError={setError} />
             <div className="error">{error}</div>
 
-            <label>Activity Filter: </label>
-            <select
-                name="activity-filter"
-                id="activity-filter-select"
-                defaultValue="all"
-                onChange={handleChange}
-            >
-                <option value="all">All</option>
-                <option value="pve">PvE</option>
-                <option value="pvp">PvP</option>
-            </select>
+            <ActivityFilter setActivityFilter={setActivityFilter} />
             <div className="stats">{statSectionList}</div>
         </div>
     );
