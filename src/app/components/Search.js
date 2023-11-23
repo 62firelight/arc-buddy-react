@@ -1,9 +1,13 @@
 "use client";
 import { useState } from "react";
-import { getBungieName, getCharacters, getHistoricalStats } from "../endpoints/apiEndpoints";
+import {
+    getBungieName,
+    getCharacters,
+    getHistoricalStats,
+} from "../endpoints/apiEndpoints";
 
 export default function Search(props) {
-    const [name, setName] = useState("");
+    const [name, setName] = useState("62firelight#8173");
 
     async function searchBungieName(name, id) {
         const getBungieNameResponse = await getBungieName(name, id);
@@ -46,17 +50,24 @@ export default function Search(props) {
         try {
             const body = await getHistoricalStatsResponse.json();
 
-            let newProfile = {};
-            newProfile.characters = body.characters;
-            newProfile.mergedStats = body.mergedStats;
-            newProfile.pveStats = body.pveStats;
-            newProfile.pvpStats = body.pvpStats;
+            foundProfile.mergedStats = body.mergedStats;
+            foundProfile.pveStats = body.pveStats;
+            foundProfile.pvpStats = body.pvpStats;
+            for (const character of body.characters) {
+                // Characters are not always listed in the right order,
+                // so we should manually match the character IDs just to
+                // be 100% sure
+                const matchedCharacter = foundProfile.characters.find(
+                    (newCharacter) =>
+                        character.characterId === newCharacter.characterId
+                );
 
-            foundProfile = _.merge(foundProfile, newProfile);
+                matchedCharacter.mergedStats = character.mergedStats;
+                matchedCharacter.pveStats = character.pveStats;
+                matchedCharacter.pvpStats = character.pvpStats;
+            }
+
             props.setProfile(foundProfile);
-
-            console.log(newProfile)
-            console.log(foundProfile)
         } catch (error) {
             const status = await getHistoricalStatsResponse.status;
             console.log(error);
@@ -90,7 +101,7 @@ export default function Search(props) {
             const bId = nameIdArray[1];
 
             searchBungieName(bName, bId);
-            setName("");
+            // setName("");
             props.setError("");
         }
     }
