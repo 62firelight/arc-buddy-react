@@ -4,9 +4,12 @@ import { Helper } from "../Helper";
 import Stat from "./Stat";
 
 export function StatSection(props) {
+
+    let hasUndefined = true;
     const statList = Array.from(props.sectionStatNames.keys()).map((stat) => {
         // Only show stats that are known
-        if (props.sectionStatNames.get(stat) !== undefined) {
+        if (props.sectionStatNames.get(stat) !== undefined && props.stats[stat] !== undefined) {
+            hasUndefined = false; // as there is at least one stat in this section
             return (
                 <Stat
                     key={stat}
@@ -21,10 +24,15 @@ export function StatSection(props) {
         }
     });
 
-    return (
-        <div>
-            <h2>{props.sectionName}</h2>
-            <div className="stat-section">{statList}</div>
-        </div>
-    );
+    // Hide section name if there are no known stats for it
+    if (hasUndefined) {
+        return;
+    } else {
+        return (
+            <div>
+                <h2>{props.sectionName}</h2>
+                <div className="stat-section">{statList}</div>
+            </div>
+        );
+    }
 }
