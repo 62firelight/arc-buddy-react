@@ -54,6 +54,9 @@ export default function Search(props) {
 
             foundProfile = _.merge(foundProfile, newProfile);
             props.setProfile(foundProfile);
+
+            console.log(newProfile)
+            console.log(foundProfile)
         } catch (error) {
             const status = await getHistoricalStatsResponse.status;
             console.log(error);

@@ -6,24 +6,40 @@ import Stat from "./components/Stat";
 import { Helper } from "./Helper";
 import { StatSection } from "./components/StatSection";
 import { ActivityFilter } from "./components/ActivityFilter";
+import { CharacterFilter } from "./components/CharacterFilter";
 
 export default function Home() {
     const [profile, setProfile] = useState({});
+    const [characterFilter, setCharacterFilter] = useState(-1);
     const [activityFilter, setActivityFilter] = useState("all");
     const [error, setError] = useState("");
+
+    const characterList =
+        profile.characters === undefined
+            ? undefined
+            : profile.characters.map((character, index) => (
+                  <option key={character.characterId} value={index}>
+                      {character.race} {character.class}
+                  </option>
+              ));
 
     function getDisplayedStats() {
         if (profile === undefined) {
             return undefined;
         }
 
+        let character = profile;
+        if (characterFilter >= 0) {
+            character = profile.characters[characterFilter];
+        }
+
         switch (activityFilter) {
             case "all":
-                return profile.mergedStats;
+                return character.mergedStats;
             case "pve":
-                return profile.pveStats;
+                return character.pveStats;
             case "pvp":
-                return profile.pvpStats;
+                return character.pvpStats;
             default:
                 break;
         }
@@ -50,6 +66,7 @@ export default function Home() {
             <Search setProfile={setProfile} setError={setError} />
             <div className="error">{error}</div>
 
+            <CharacterFilter characterList={characterList} setCharacterFilter={setCharacterFilter} />
             <ActivityFilter setActivityFilter={setActivityFilter} />
             <div className="stats">{statSectionList}</div>
         </div>
