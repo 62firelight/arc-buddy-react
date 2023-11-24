@@ -2,13 +2,10 @@
 import { useState } from "react";
 import Search from "./components/Search";
 import _ from "lodash";
-import Stat from "./components/Stat";
-import { Helper } from "./Helper";
-import { StatSection } from "./components/StatSection";
 import { ActivityFilter } from "./components/ActivityFilter";
 import { CharacterFilter } from "./components/CharacterFilter";
-import Link from "next/link";
 import { Stats } from "./components/Stats";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
     const [profile, setProfile] = useState(undefined);
@@ -16,7 +13,20 @@ export default function Home() {
     const [activityFilter, setActivityFilter] = useState("all");
     const [error, setError] = useState("");
 
+    const router = useRouter();
+
     function reset() {
+        // Reset query params
+        router.replace('/', undefined, { shallow: true });
+
+        // Reset state
+        setProfile(undefined);
+        setError("");
+        setCharacterFilter(-1);
+        setActivityFilter("all");
+    }
+
+    function resetAfterSubmission() {
         setError("");
         setCharacterFilter(-1);
         setActivityFilter("all");
@@ -58,8 +68,8 @@ export default function Home() {
 
     return (
         <div>
-            <h1>Arc Buddy</h1>
-            <Search setError={setError} reset={reset} />
+            <h1 id="app-heading" onClick={reset}>Arc Buddy</h1>
+            <Search setError={setError} resetAfterSubmission={resetAfterSubmission} />
             <div className="error">{error}</div>
 
             <CharacterFilter

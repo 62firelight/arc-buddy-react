@@ -1,7 +1,5 @@
 "use client";
 
-import { Helper } from "../Helper";
-
 export default function Stat(props) {
     function convertFromCamelCase(string) {
         return string

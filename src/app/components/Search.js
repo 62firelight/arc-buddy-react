@@ -1,10 +1,6 @@
 "use client";
 import { useState } from "react";
-import {
-    getBungieName,
-    getCharacters,
-    getHistoricalStats,
-} from "../endpoints/apiEndpoints";
+import { getBungieName } from "../endpoints/apiEndpoints";
 import { useRouter } from "next/navigation";
 
 export default function Search(props, { params }) {
@@ -19,7 +15,9 @@ export default function Search(props, { params }) {
         try {
             const body = await getBungieNameResponse.json();
             foundProfile = body;
-            router.push(`?membershipType=${foundProfile.membershipType}&membershipId=${foundProfile.membershipId}`);
+            router.push(
+                `?membershipType=${foundProfile.membershipType}&membershipId=${foundProfile.membershipId}`
+            );
         } catch (error) {
             const status = await getBungieNameResponse.status;
             console.log(error);
@@ -52,7 +50,7 @@ export default function Search(props, { params }) {
 
             searchBungieName(bName, bId);
             setName("");
-            props.reset();
+            props.resetAfterSubmission();
         }
     }
 

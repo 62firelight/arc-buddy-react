@@ -2,6 +2,10 @@ html, body {
   text-align: center;
 }
 
+#app-heading {
+  cursor: pointer;
+}
+
 .error {
   color: red;
 }
