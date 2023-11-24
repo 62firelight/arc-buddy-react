@@ -5,9 +5,12 @@ import {
     getCharacters,
     getHistoricalStats,
 } from "../endpoints/apiEndpoints";
+import { useRouter } from "next/navigation";
 
-export default function Search(props) {
+export default function Search(props, { params }) {
     const [name, setName] = useState("");
+
+    const router = useRouter();
 
     async function searchBungieName(name, id) {
         const getBungieNameResponse = await getBungieName(name, id);
@@ -16,65 +19,12 @@ export default function Search(props) {
         try {
             const body = await getBungieNameResponse.json();
             foundProfile = body;
+            router.push(`?membershipType=${foundProfile.membershipType}&membershipId=${foundProfile.membershipId}`);
         } catch (error) {
             const status = await getBungieNameResponse.status;
             console.log(error);
             if (status === 404) {
                 setError("Could not find specified Destiny 2 player");
-            }
-            return;
-        }
-
-        const getCharactersResponse = await getCharacters(
-            foundProfile.membershipType,
-            foundProfile.membershipId
-        );
-        try {
-            const body = await getCharactersResponse.json();
-            foundProfile = body;
-        } catch (error) {
-            const status = await getCharactersResponse.status;
-            console.log(error);
-            if (status === 404) {
-                setError(
-                    "Could not find characters for specified Destiny 2 player"
-                );
-            }
-            return;
-        }
-
-        const getHistoricalStatsResponse = await getHistoricalStats(
-            foundProfile.membershipType,
-            foundProfile.membershipId
-        );
-        try {
-            const body = await getHistoricalStatsResponse.json();
-
-            foundProfile.mergedStats = body.mergedStats;
-            foundProfile.pveStats = body.pveStats;
-            foundProfile.pvpStats = body.pvpStats;
-            for (const character of body.characters) {
-                // Characters are not always listed in the right order,
-                // so we should manually match the character IDs just to
-                // be 100% sure
-                const matchedCharacter = foundProfile.characters.find(
-                    (newCharacter) =>
-                        character.characterId === newCharacter.characterId
-                );
-
-                matchedCharacter.mergedStats = character.mergedStats;
-                matchedCharacter.pveStats = character.pveStats;
-                matchedCharacter.pvpStats = character.pvpStats;
-            }
-
-            props.setProfile(foundProfile);
-        } catch (error) {
-            const status = await getHistoricalStatsResponse.status;
-            console.log(error);
-            if (status === 404) {
-                setError(
-                    "Could not find historical stats for specified Destiny 2 player"
-                );
             }
             return;
         }

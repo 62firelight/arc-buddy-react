@@ -7,9 +7,11 @@ import { Helper } from "./Helper";
 import { StatSection } from "./components/StatSection";
 import { ActivityFilter } from "./components/ActivityFilter";
 import { CharacterFilter } from "./components/CharacterFilter";
+import Link from "next/link";
+import { Stats } from "./components/Stats";
 
 export default function Home() {
-    const [profile, setProfile] = useState({});
+    const [profile, setProfile] = useState(undefined);
     const [characterFilter, setCharacterFilter] = useState(-1);
     const [activityFilter, setActivityFilter] = useState("all");
     const [error, setError] = useState("");
@@ -45,20 +47,8 @@ export default function Home() {
     }
     const displayedStats = getDisplayedStats();
 
-    let statSectionList = undefined;
-    if (displayedStats !== undefined) {
-        statSectionList = Array.from(Helper.sections.keys()).map((section) => (
-            <StatSection
-                key={section}
-                sectionName={section}
-                sectionStatNames={Helper.sections.get(section)}
-                stats={displayedStats}
-            />
-        ));
-    }
-
     const characterList =
-        profile.characters === undefined
+        profile === undefined
             ? undefined
             : profile.characters.map((character, index) => (
                   <option key={character.characterId} value={index}>
@@ -66,18 +56,10 @@ export default function Home() {
                   </option>
               ));
 
-    const profileName =
-        profile.bungieGlobalDisplayName === undefined &&
-        profile.bungieGlobalDisplayNameCode === undefined
-            ? undefined
-            : profile.bungieGlobalDisplayName +
-              "#" +
-              profile.bungieGlobalDisplayNameCode;
-
     return (
         <div>
             <h1>Arc Buddy</h1>
-            <Search setProfile={setProfile} reset={reset} />
+            <Search setError={setError} reset={reset} />
             <div className="error">{error}</div>
 
             <CharacterFilter
@@ -89,8 +71,12 @@ export default function Home() {
                 activityFilter={activityFilter}
                 setActivityFilter={setActivityFilter}
             />
-            <h2>{profileName}</h2>
-            <div className="stats">{statSectionList}</div>
+            <Stats
+                profile={profile}
+                displayedStats={displayedStats}
+                setProfile={setProfile}
+                setError={setError}
+            />
         </div>
     );
 }
