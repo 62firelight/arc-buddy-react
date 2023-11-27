@@ -17,7 +17,7 @@ export default function Home() {
 
     function reset() {
         // Reset query params
-        router.replace('/', undefined, { shallow: true });
+        router.replace("/", undefined, { shallow: true });
 
         // Reset state
         setProfile(undefined);
@@ -27,6 +27,7 @@ export default function Home() {
     }
 
     function resetAfterSubmission() {
+        setProfile(undefined);
         setError("");
         setCharacterFilter(-1);
         setActivityFilter("all");
@@ -68,10 +69,14 @@ export default function Home() {
 
     return (
         <div>
-            <h1 id="app-heading" onClick={reset}>Arc Buddy</h1>
-            <Search setError={setError} resetAfterSubmission={resetAfterSubmission} />
+            <h1 id="app-heading" onClick={reset}>
+                Arc Buddy
+            </h1>
+            <Search
+                setError={setError}
+                resetAfterSubmission={resetAfterSubmission}
+            />
             <div className="error">{error}</div>
-
             <CharacterFilter
                 characterList={characterList}
                 characterFilter={characterFilter}
@@ -81,6 +86,7 @@ export default function Home() {
                 activityFilter={activityFilter}
                 setActivityFilter={setActivityFilter}
             />
+
             <Stats
                 profile={profile}
                 displayedStats={displayedStats}

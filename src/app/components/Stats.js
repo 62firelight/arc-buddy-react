@@ -1,10 +1,11 @@
-"use client"
+"use client";
 
 import { useSearchParams } from "next/navigation";
 import { getCharacters, getHistoricalStats } from "../endpoints/apiEndpoints";
 import { StatSection } from "./StatSection";
 import { Helper } from "../Helper";
 import { useMemo } from "react";
+import { Oval } from "react-loader-spinner";
 
 export function Stats(props) {
     const searchParams = useSearchParams();
@@ -12,7 +13,7 @@ export function Stats(props) {
     const paramMembershipId = searchParams.get("membershipId");
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    useMemo(() => fetchStats(), [paramMembershipId])
+    useMemo(() => fetchStats(), [paramMembershipId]);
 
     async function fetchStats() {
         if (paramMembershipType === null || paramMembershipId === null) {
@@ -81,7 +82,19 @@ export function Stats(props) {
 
     let profileName = undefined;
     if (props.profile !== undefined) {
-        profileName = props.profile.bungieGlobalDisplayName + "#" + props.profile.bungieGlobalDisplayNameCode;
+        profileName =
+            props.profile.bungieGlobalDisplayName +
+            "#" +
+            props.profile.bungieGlobalDisplayNameCode;
+    }
+
+    let spinner = undefined;
+    if (paramMembershipId !== null && props.displayedStats === undefined) {
+        spinner = (
+            <div className="spinner">
+                <Oval color="darkblue" secondaryColor="cyan" />
+            </div>
+        );
     }
 
     let statSectionList = undefined;
@@ -96,5 +109,11 @@ export function Stats(props) {
         ));
     }
 
-    return <div className="stats"><h2>{profileName}</h2>{statSectionList}</div>;
+    return (
+        <div className="stats">
+            {spinner}
+            <h2>{profileName}</h2>
+            {statSectionList}
+        </div>
+    );
 }

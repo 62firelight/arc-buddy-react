@@ -16,6 +16,12 @@ html, body {
   justify-content: center;
 }
 
+.spinner {
+  display: flex;
+  justify-content: center;
+  margin: 2em;
+}
+
 .stat-section {
   display: flex;
   flex-flow: row wrap;
