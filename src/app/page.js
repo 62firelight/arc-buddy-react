@@ -77,22 +77,30 @@ export default function Home() {
                 resetAfterSubmission={resetAfterSubmission}
             />
             <div className="error">{error}</div>
-            <CharacterFilter
-                characterList={characterList}
-                characterFilter={characterFilter}
-                setCharacterFilter={setCharacterFilter}
-            />
-            <ActivityFilter
-                activityFilter={activityFilter}
-                setActivityFilter={setActivityFilter}
-            />
 
-            <Stats
-                profile={profile}
-                displayedStats={displayedStats}
-                setProfile={setProfile}
-                setError={setError}
-            />
+            <div className="stats-container">
+                <div className="filters">
+                    <h2>Filters</h2>
+                    <ActivityFilter
+                        activityFilter={activityFilter}
+                        setActivityFilter={setActivityFilter}
+                    />
+                    <CharacterFilter
+                        characterList={characterList}
+                        characterFilter={characterFilter}
+                        setCharacterFilter={setCharacterFilter}
+                    />
+                </div>
+
+                <div className="stat-content">
+                    <Stats
+                        profile={profile}
+                        displayedStats={displayedStats}
+                        setProfile={setProfile}
+                        setError={setError}
+                    />
+                </div>
+            </div>
         </div>
     );
 }
