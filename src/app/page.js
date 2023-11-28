@@ -92,7 +92,7 @@ export default function Home() {
                     />
                 </div>
 
-                <div className="stat-content">
+                <div className="stats-content">
                     <Stats
                         profile={profile}
                         displayedStats={displayedStats}

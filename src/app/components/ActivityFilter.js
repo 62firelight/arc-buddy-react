@@ -6,8 +6,8 @@ export function ActivityFilter(props) {
     }
 
     return (
-        <div>
-            <label>Activity Filter: </label>
+        <div className="filter">
+            <label>Activity Filter</label>
             <select
                 name="activity-filter"
                 id="activity-filter-select"

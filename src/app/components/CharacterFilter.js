@@ -6,8 +6,8 @@ export function CharacterFilter(props) {
     }
 
     return (
-        <div>
-            <label>Character Filter: </label>
+        <div className="filter">
+            <label>Character Filter</label>
             <select
                 name="character-filter"
                 id="character-filter-select"
