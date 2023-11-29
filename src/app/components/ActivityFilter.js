@@ -7,7 +7,6 @@ export function ActivityFilter(props) {
 
     return (
         <div className="filter">
-            <label>Activity Filter</label>
             <select
                 name="activity-filter"
                 id="activity-filter-select"

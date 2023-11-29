@@ -1,32 +1,21 @@
 "use client";
 
 export function CharacterFilter(props) {
-    function handleChange(e) {
-        props.setCharacterFilter(e.target.value);
-    }
-
     return (
         <div className="filter">
-            <label>Character Filter</label>
-            <button onClick={() => props.setCharacterFilter(-1)}>
-                All Characters
-            </button>
-            <div className="characters">{props.characterList}</div>
+            <div className="characters">
+                <div className="character">
+                    <button
+                        className="all-characters-button"
+                        onClick={() => props.setCharacterFilter(-1)}
+                    >
+                        All Characters
+                    </button>
+                    {props.characterFilter !== -1 ? undefined : <div className="arrow-right"></div>}
+                </div>
+
+                {props.characterList}
+            </div>
         </div>
     );
-
-    // return (
-    //     <div className="filter">
-    //         <label>Character Filter</label>
-    //         <select
-    //             name="character-filter"
-    //             id="character-filter-select"
-    //             value={props.characterFilter}
-    //             onChange={handleChange}
-    //         >
-    //             <option value="-1">All Characters</option>
-    //             {props.characterList}
-    //         </select>
-    //     </div>
-    // );
 }

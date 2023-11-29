@@ -84,14 +84,9 @@ export default function Home() {
 
                     <small>{character.race}</small>
                 </div>
+                {characterFilter !== index ? undefined : <div className="arrow-right"></div>}
             </div>
         ));
-
-        // characterList = profile.characters.map((character, index) => (
-        //     <option key={character.characterId} value={index}>
-        //         {character.race} {character.class} ({character.light})
-        //     </option>
-        // ));
 
         filters = (
             <div className="filters">

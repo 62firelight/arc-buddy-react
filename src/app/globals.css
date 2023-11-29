@@ -20,8 +20,11 @@ html, body {
 .filters {
   display: flex;
   flex-flow: column wrap;
-  width: 10%;
-  margin: 2em;
+  margin: 0 0 0 2em;
+}
+
+.filters h2 {
+  text-align: left;
 }
 
 .filter {
@@ -29,14 +32,29 @@ html, body {
   flex-flow: column nowrap;
 }
 
+#activity-filter-select {
+  width: 86.75%;
+}
+
 .character-list {
   display: flex;
   flex-flow: row nowrap;
 }
 
+.all-characters {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+
+.all-characters-button {
+  width: 300px;
+  height: 60.75px;
+}
+
 .character {
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: row nowrap;
   cursor: pointer;
   margin: 1em 0 1em 0;
 }
@@ -75,10 +93,11 @@ html, body {
 }
 
 .arrow-right {
-  border-top: 20px solid transparent;
-  border-bottom: 20px solid transparent;
-  border-left: 20px solid gray;
+  border-top: 30px solid transparent;
+  border-bottom: 30px solid transparent;
+  border-left: 30px solid gray;
   border-right: 0;
+  margin: 0 0 0 1em;
 }
 
 .stats-content {
@@ -88,13 +107,12 @@ html, body {
 .stats {
   display: flex;
   flex-flow: column wrap;
-  justify-content: center;
-  margin: 2em;
 }
 
 .spinner {
   display: flex;
   justify-content: center;
+  margin: 2em;
 }
 
 .stat-section {
