@@ -58,15 +58,30 @@ export default function Home() {
     }
     const displayedStats = getDisplayedStats();
 
-    const characterList =
-        profile === undefined
-            ? undefined
-            : profile.characters.map((character, index) => (
-                  <option key={character.characterId} value={index}>
-                      {character.race} {character.class} ({character.light})
-                  </option>
-              ));
+    let filters = undefined;
+    let characterList = undefined;
+    if (profile !== undefined) {
+        characterList = profile.characters.map((character, index) => (
+            <option key={character.characterId} value={index}>
+                {character.race} {character.class} ({character.light})
+            </option>
+        ));
 
+        filters = (
+            <div className="filters">
+                <h2>Filters</h2>
+                <ActivityFilter
+                    activityFilter={activityFilter}
+                    setActivityFilter={setActivityFilter}
+                />
+                <CharacterFilter
+                    characterList={characterList}
+                    characterFilter={characterFilter}
+                    setCharacterFilter={setCharacterFilter}
+                />
+            </div>
+        );
+    }
     return (
         <div>
             <h1 id="app-heading" onClick={reset}>
@@ -79,18 +94,7 @@ export default function Home() {
             <div className="error">{error}</div>
 
             <div className="stats-container">
-                <div className="filters">
-                    <h2>Filters</h2>
-                    <ActivityFilter
-                        activityFilter={activityFilter}
-                        setActivityFilter={setActivityFilter}
-                    />
-                    <CharacterFilter
-                        characterList={characterList}
-                        characterFilter={characterFilter}
-                        setCharacterFilter={setCharacterFilter}
-                    />
-                </div>
+                {filters}
 
                 <div className="stats-content">
                     <Stats
