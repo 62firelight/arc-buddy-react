@@ -6,10 +6,11 @@ import { ActivityFilter } from "./components/ActivityFilter";
 import { CharacterFilter } from "./components/CharacterFilter";
 import { Stats } from "./components/Stats";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function Home() {
     const [profile, setProfile] = useState(undefined);
-    const [characterFilter, setCharacterFilter] = useState(-1);
+    const [characterFilter, setCharacterFilter] = useState(-1); // -1 = all characters
     const [activityFilter, setActivityFilter] = useState("all");
     const [error, setError] = useState("");
 
@@ -62,10 +63,35 @@ export default function Home() {
     let characterList = undefined;
     if (profile !== undefined) {
         characterList = profile.characters.map((character, index) => (
-            <option key={character.characterId} value={index}>
-                {character.race} {character.class} ({character.light})
-            </option>
+            <div
+                className="character"
+                key={character.characterId}
+                onClick={() => setCharacterFilter(index)}
+            >
+                <img
+                    src={character.emblem}
+                    alt="emblem"
+                    className="character-emblem"
+                />
+                <div className="character-info">
+                    <div className="character-class-light">
+                        {character.class}
+
+                        <div className="character-light">
+                            <strong>{character.light}</strong>
+                        </div>
+                    </div>
+
+                    <small>{character.race}</small>
+                </div>
+            </div>
         ));
+
+        // characterList = profile.characters.map((character, index) => (
+        //     <option key={character.characterId} value={index}>
+        //         {character.race} {character.class} ({character.light})
+        //     </option>
+        // ));
 
         filters = (
             <div className="filters">

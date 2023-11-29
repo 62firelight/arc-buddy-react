@@ -26,7 +26,59 @@ html, body {
 
 .filter {
   display: flex;
-  flex-flow: column wrap;
+  flex-flow: column nowrap;
+}
+
+.character-list {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.character {
+  display: flex;
+  flex-flow: row wrap;
+  cursor: pointer;
+  margin: 1em 0 1em 0;
+}
+
+.character-emblem {
+  vertical-align: top;
+  width: 300px;
+  height: auto;
+}
+
+.character-info {
+  display: flex;
+  flex-direction: column;
+  color: #FFF;
+  padding: 0;
+  width: 240px;
+  height: auto;
+  position: absolute;
+  text-align: left;
+  margin: 0.25em 0 0 3.25em;
+}
+
+.character-info small {
+  color: gray;
+  font-size: 12px;
+}
+
+.character-class-light {
+  display: flex;
+  justify-content: space-between;
+}
+
+.character-class-light strong {
+  font-size: 20px;
+  color: yellow;
+}
+
+.arrow-right {
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  border-left: 20px solid gray;
+  border-right: 0;
 }
 
 .stats-content {
