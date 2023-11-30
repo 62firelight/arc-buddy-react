@@ -6,6 +6,10 @@ html, body {
   cursor: pointer;
 }
 
+form * {
+  margin: 0.25em;
+}
+
 .error {
   color: red;
 }
