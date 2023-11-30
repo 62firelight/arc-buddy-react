@@ -112,7 +112,7 @@ form * {
   display: flex;
   width: 100%;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .stats {
@@ -144,6 +144,5 @@ form * {
 @media (min-width: 500px) {
   .stats-container {
     flex-flow: row nowrap;
-    width: 85%;
   }
 }
