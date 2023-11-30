@@ -82,14 +82,22 @@ export function Stats(props) {
 
     let profileName = undefined;
     if (props.profile !== undefined) {
-        profileName =
-            props.profile.bungieGlobalDisplayName +
-            "#" +
-            props.profile.bungieGlobalDisplayNameCode;
+        profileName = (
+            <h2>
+                {props.profile.bungieGlobalDisplayName}
+                <span className="name-code">
+                    #{props.profile.bungieGlobalDisplayNameCode}
+                </span>
+            </h2>
+        );
     }
 
     let spinner = undefined;
-    if (paramMembershipId !== null && props.profile === undefined && props.displayedStats === undefined) {
+    if (
+        paramMembershipId !== null &&
+        props.profile === undefined &&
+        props.displayedStats === undefined
+    ) {
         spinner = (
             <div className="spinner">
                 <Oval color="darkblue" secondaryColor="cyan" />
@@ -120,7 +128,7 @@ export function Stats(props) {
 
     return (
         <div className="stats">
-            <h2>{profileName}</h2>
+            {profileName}
             {spinner}
             {errorNoStatsFound}
             {statSectionList}

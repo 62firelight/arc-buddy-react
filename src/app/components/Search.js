@@ -56,7 +56,6 @@ export default function Search(props, { params }) {
 
     return (
         <form onSubmit={handleSubmit}>
-            {/* <label for="new-name-input">Search Destiny players</label> */}
             <input
                 type="text"
                 id="new-name-input"

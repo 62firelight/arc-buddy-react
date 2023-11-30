@@ -120,6 +120,10 @@ form * {
   flex-flow: column wrap;
 }
 
+.name-code {
+  color: #479CE4;
+}
+
 .spinner {
   display: flex;
   justify-content: center;
