@@ -89,10 +89,19 @@ export function Stats(props) {
     }
 
     let spinner = undefined;
-    if (paramMembershipId !== null && props.displayedStats === undefined) {
+    if (paramMembershipId !== null && props.profile === undefined && props.displayedStats === undefined) {
         spinner = (
             <div className="spinner">
                 <Oval color="darkblue" secondaryColor="cyan" />
+            </div>
+        );
+    }
+
+    let errorNoStatsFound = undefined;
+    if (props.profile !== undefined && props.displayedStats === undefined) {
+        errorNoStatsFound = (
+            <div className="no-stats-found">
+                No stats matching the filters were found.
             </div>
         );
     }
@@ -111,8 +120,9 @@ export function Stats(props) {
 
     return (
         <div className="stats">
-            {spinner}
             <h2>{profileName}</h2>
+            {spinner}
+            {errorNoStatsFound}
             {statSectionList}
         </div>
     );
