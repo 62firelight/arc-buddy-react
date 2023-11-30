@@ -12,7 +12,7 @@ html, body {
 
 .stats-container {
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: column nowrap;
   justify-content: center;
   width: 100%;
 }
@@ -59,6 +59,10 @@ html, body {
   margin: 1em 0 1em 0;
 }
 
+.character:hover {
+  opacity: 0.9;
+}
+
 .character-emblem {
   vertical-align: top;
   width: 300px;
@@ -101,7 +105,10 @@ html, body {
 }
 
 .stats-content {
-  width: 85%;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
 }
 
 .stats {
@@ -124,4 +131,11 @@ html, body {
 .stat {
   flex-basis: 20%;
   padding: 1.5em;
+}
+
+@media (min-width: 500px) {
+  .stats-container {
+    flex-flow: row nowrap;
+    width: 85%;
+  }
 }
