@@ -22,7 +22,7 @@ export default function Search(props, { params }) {
             const status = await getBungieNameResponse.status;
             console.log(error);
             if (status === 404) {
-                setError("Could not find specified Destiny 2 player");
+                props.setError("Could not find specified Destiny 2 player");
             }
             return;
         }

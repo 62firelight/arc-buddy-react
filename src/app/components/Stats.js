@@ -94,6 +94,7 @@ export function Stats(props) {
 
     let spinner = undefined;
     if (
+        props.error.length <= 0 &&
         paramMembershipId !== null &&
         props.profile === undefined &&
         props.displayedStats === undefined

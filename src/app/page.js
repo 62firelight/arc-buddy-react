@@ -122,6 +122,7 @@ export default function Home() {
                         profile={profile}
                         displayedStats={displayedStats}
                         setProfile={setProfile}
+                        error={error}
                         setError={setError}
                     />
                 </div>
