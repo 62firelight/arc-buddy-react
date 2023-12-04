@@ -86,11 +86,12 @@ export function Stats(props) {
             <h2>
                 {props.profile.bungieGlobalDisplayName}
                 <span className="name-code">
-                    #{props.profile.bungieGlobalDisplayNameCode}
+                    #{props.profile.bungieGlobalDisplayNameCode.toString().length === 3 ? "0" : ""}{props.profile.bungieGlobalDisplayNameCode}
                 </span>
             </h2>
         );
     }
+    console.log(props.profile)
 
     let spinner = undefined;
     if (
