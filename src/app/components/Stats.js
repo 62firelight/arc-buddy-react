@@ -91,7 +91,6 @@ export function Stats(props) {
             </h2>
         );
     }
-    console.log(props.profile)
 
     let spinner = undefined;
     if (
