@@ -21,13 +21,13 @@ form * {
   width: 100%;
 }
 
-.filters {
+.left-content {
   display: flex;
   flex-flow: column wrap;
   margin: 0 0 0 2em;
 }
 
-.filters h2 {
+.left-content h2 {
   text-align: left;
 }
 
@@ -38,6 +38,23 @@ form * {
 
 #activity-filter-select {
   width: 86.75%;
+}
+
+.links {
+  display: flex;
+  flex-flow: column nowrap;
+  text-align: left;
+}
+
+.links a {
+  display: flex;
+  align-items: center;
+  margin: 0.125em 0 0 0;
+}
+
+.links img {
+  max-width: 16px;
+  margin-right: 0.16em;
 }
 
 .character-list {
@@ -108,7 +125,7 @@ form * {
   margin: 0 0 0 1em;
 }
 
-.stats-content {
+.right-content {
   display: flex;
   width: 100%;
   justify-content: center;
