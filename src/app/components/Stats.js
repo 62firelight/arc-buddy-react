@@ -68,6 +68,7 @@ export function Stats(props) {
             }
 
             props.setProfile(foundProfile);
+            props.setName("");
         } catch (error) {
             const status = await getHistoricalStatsResponse.status;
             console.log(error);

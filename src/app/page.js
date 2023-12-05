@@ -11,9 +11,10 @@ import Links from "./components/Links";
 
 export default function Home() {
     const [profile, setProfile] = useState(undefined);
+    const [name, setName] = useState("");
+    const [error, setError] = useState("");
     const [characterFilter, setCharacterFilter] = useState(-1); // -1 = all characters
     const [activityFilter, setActivityFilter] = useState("all");
-    const [error, setError] = useState("");
 
     const router = useRouter();
 
@@ -97,6 +98,8 @@ export default function Home() {
                 Arc Buddy
             </h1>
             <Search
+                name={name}
+                setName={setName}
                 setError={setError}
                 resetAfterSubmission={resetAfterSubmission}
             />
@@ -129,6 +132,7 @@ export default function Home() {
                         profile={profile}
                         displayedStats={displayedStats}
                         setProfile={setProfile}
+                        setName={setName}
                         error={error}
                         setError={setError}
                     />

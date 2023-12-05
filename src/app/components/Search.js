@@ -4,8 +4,6 @@ import { getBungieName } from "../endpoints/apiEndpoints";
 import { useRouter } from "next/navigation";
 
 export default function Search(props, { params }) {
-    const [name, setName] = useState("");
-
     const router = useRouter();
 
     async function searchBungieName(name, id) {
@@ -29,14 +27,14 @@ export default function Search(props, { params }) {
     }
 
     function handleChange(e) {
-        setName(e.target.value);
+        props.setName(e.target.value);
     }
 
     function handleSubmit(e) {
         e.preventDefault();
 
-        if (name.length > 0) {
-            const nameIdArray = name.split("#", 2);
+        if (props.name.length > 0) {
+            const nameIdArray = props.name.split("#", 2);
 
             if (nameIdArray == undefined || nameIdArray.length != 2) {
                 props.setError(
@@ -49,7 +47,6 @@ export default function Search(props, { params }) {
             const bId = nameIdArray[1];
 
             searchBungieName(bName, bId);
-            setName("");
             props.resetAfterSubmission();
         }
     }
@@ -63,7 +60,7 @@ export default function Search(props, { params }) {
                 name="text"
                 placeholder="BungieName#1234"
                 autoComplete="off"
-                value={name}
+                value={props.name}
                 onChange={handleChange}
             />
             <button type="submit" className="btn btn__primary btn__lg">
