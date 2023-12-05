@@ -143,8 +143,13 @@ form * {
 
 .spinner {
   display: flex;
-  justify-content: center;
+  flex-flow: column wrap;
+  align-items: center;
   margin: 2em;
+}
+
+.spinner span {
+  margin: 0.5em;
 }
 
 .stat-section {

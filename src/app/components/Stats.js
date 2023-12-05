@@ -102,6 +102,7 @@ export function Stats(props) {
         spinner = (
             <div className="spinner">
                 <Oval color="darkblue" secondaryColor="cyan" />
+                <span>Fetching stats...</span>
             </div>
         );
     }
