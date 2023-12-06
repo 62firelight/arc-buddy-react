@@ -29,8 +29,9 @@ export function StatSection(props) {
         return;
     } else {
         return (
-            <div>
+            <div className="stat-section-container">
                 <h3>{props.sectionName}</h3>
+                <hr />
                 <div className="stat-section">{statList}</div>
             </div>
         );

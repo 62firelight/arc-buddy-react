@@ -152,19 +152,29 @@ form * {
   margin: 0.5em;
 }
 
+.stat-section-container {
+  /* text-align: left; */
+  margin: 0 3em;
+}
+
 .stat-section {
   display: flex;
   flex-flow: row wrap;
+  text-align: center;
   justify-content: center;
 }
 
 .stat {
   flex-basis: 20%;
-  padding: 1.5em;
+  padding: 1em;
 }
 
 @media (min-width: 500px) {
   .stats-container {
     flex-flow: row nowrap;
+  }
+
+  .stat-section {
+    justify-content: flex-start;
   }
 }
