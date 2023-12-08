@@ -8,7 +8,7 @@ Contributions are welcome, but keep in mind that this project was initially buil
 
 1. Clone the repository using `git clone https://github.com/62firelight/arc-buddy-react.git`
 2. Run `npm install` inside the backend and frontend folders to install dependencies
-3. Acquire an API key. DIM has [instructions](https://github.com/DestinyItemManager/DIM/blob/master/docs/CONTRIBUTING.md#enter-api-credentials) on how to do this
+3. Acquire an API key. DIM has [instructions](https://github.com/DestinyItemManager/DIM/blob/master/docs/CONTRIBUTING.md#get-your-own-api-key) on how to do this
 4. Create an environment variable called `ARC_KEY`
 5. Inside the backend folder, run `node server.js` to start the back-end server at http://localhost:3000/
 6. Inside the frontend folder, run `npm run dev` to start the front-end server at http://localhost:4000/
