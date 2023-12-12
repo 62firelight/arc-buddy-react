@@ -1,23 +1,23 @@
 "use client";
 import { useState } from "react";
-import { getBungieName } from "../endpoints/apiEndpoints";
+import { searchDestinyPlayerByBungieName } from "../endpoints/apiEndpoints";
 import { useRouter } from "next/navigation";
 
 export default function Search(props, { params }) {
     const router = useRouter();
 
     async function searchBungieName(name, id) {
-        const getBungieNameResponse = await getBungieName(name, id);
+        const searchDestinyPlayerByBungieNameResponse = await searchDestinyPlayerByBungieName(name, id);
 
         let foundProfile = undefined;
         try {
-            const body = await getBungieNameResponse.json();
+            const body = await searchDestinyPlayerByBungieNameResponse.json();
             foundProfile = body[0];
             router.push(
                 `?membershipType=${foundProfile.membershipType}&membershipId=${foundProfile.membershipId}`
             );
         } catch (error) {
-            const status = await getBungieNameResponse.status;
+            const status = await searchDestinyPlayerByBungieNameResponse.status;
             console.log(error);
             if (status === 404) {
                 props.setError("Could not find specified Destiny 2 player");

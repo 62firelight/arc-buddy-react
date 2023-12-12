@@ -14,7 +14,7 @@ const raceMap = {
     2: 'Exo'
 }
 
-exports.searchDestinyPlayer = (req, res) => {
+exports.searchDestinyPlayerByBungieName = (req, res) => {
     const destiny = server.getDestiny();
 
     if (destiny == undefined) {
@@ -38,7 +38,7 @@ exports.searchDestinyPlayer = (req, res) => {
         });
 };
 
-exports.getHistoricalStats = (req, res) => {
+exports.getHistoricalStatsForAccount = (req, res) => {
     const destiny = server.getDestiny();
 
     if (destiny == undefined) {

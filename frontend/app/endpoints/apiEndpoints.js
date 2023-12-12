@@ -1,18 +1,18 @@
 const serverUrl = "http://localhost:3000/";
 
-export async function getBungieName(name, id) {
+export async function searchDestinyPlayerByBungieName(name, id) {
     const response = await fetch(`${serverUrl}api/players/${name}/${id}`);
     return response;
 }
 
-export async function getCharacters(membershipType, membershipId) {
+export async function getProfile(membershipType, membershipId) {
     const response = await fetch(
         `${serverUrl}api/players/character/${membershipType}/${membershipId}`
     );
     return response;
 }
 
-export async function getHistoricalStats(membershipType, membershipId) {
+export async function getHistoricalStatsForAccount(membershipType, membershipId) {
     const response = await fetch(
         `${serverUrl}api/players/account/${membershipType}/${membershipId}`
     );

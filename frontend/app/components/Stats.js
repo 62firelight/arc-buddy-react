@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { getCharacters, getHistoricalStats } from "../endpoints/apiEndpoints";
+import { getProfile, getHistoricalStatsForAccount } from "../endpoints/apiEndpoints";
 import { StatSection } from "./StatSection";
 import { Helper } from "../Helper";
 import { useMemo } from "react";
@@ -37,12 +37,12 @@ export function Stats(props) {
             membershipId: paramMembershipId,
         };
 
-        const getCharactersResponse = await getCharacters(
+        const getProfileResponse = await getProfile(
             foundProfile.membershipType,
             foundProfile.membershipId
         );
         try {
-            const body = await getCharactersResponse.json();
+            const body = await getProfileResponse.json();
 
             // fetch required details about Destiny profile
             let profile = body.Response.profile.data.userInfo;
@@ -67,7 +67,7 @@ export function Stats(props) {
             profile.characters = fetchedCharacters;
             foundProfile = profile;
         } catch (error) {
-            const status = await getCharactersResponse.status;
+            const status = await getProfileResponse.status;
             console.log(error);
             if (status === 404) {
                 props.setError(
@@ -77,12 +77,12 @@ export function Stats(props) {
             return;
         }
 
-        const getHistoricalStatsResponse = await getHistoricalStats(
+        const getHistoricalStatsForAccountResponse = await getHistoricalStatsForAccount(
             foundProfile.membershipType,
             foundProfile.membershipId
         );
         try {
-            const body = await getHistoricalStatsResponse.json();
+            const body = await getHistoricalStatsForAccountResponse.json();
 
             foundProfile.mergedStats =
                 body.Response.mergedAllCharacters.merged.allTime;
@@ -113,7 +113,7 @@ export function Stats(props) {
             props.setProfile(foundProfile);
             props.setName("");
         } catch (error) {
-            const status = await getHistoricalStatsResponse.status;
+            const status = await getHistoricalStatsForAccountResponse.status;
             console.log(error);
             if (status === 404) {
                 props.setError(
