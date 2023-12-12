@@ -5,9 +5,9 @@ export async function searchDestinyPlayerByBungieName(name, id) {
     return response;
 }
 
-export async function getProfile(membershipType, membershipId) {
+export async function getProfile(membershipType, membershipId, components) {
     const response = await fetch(
-        `${serverUrl}api/players/character/${membershipType}/${membershipId}`
+        `${serverUrl}api/players/character/${membershipType}/${membershipId}?` + new URLSearchParams(components)
     );
     return response;
 }

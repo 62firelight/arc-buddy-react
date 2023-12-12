@@ -39,7 +39,10 @@ export function Stats(props) {
 
         const getProfileResponse = await getProfile(
             foundProfile.membershipType,
-            foundProfile.membershipId
+            foundProfile.membershipId,
+            {
+                components: [100, 200]
+            }
         );
         try {
             const body = await getProfileResponse.json();

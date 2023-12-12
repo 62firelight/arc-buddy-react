@@ -70,8 +70,9 @@ exports.getProfile = (req, res) => {
 
     const membershipType = req.params.type;
     const membershipId = req.params.id;
+    const components = req.query;
 
-    destiny.GetProfile(membershipId, membershipType, {components: [100, 200]})
+    destiny.GetProfile(membershipId, membershipType, components)
         .then(response => {
             res.status(200).send(response);
         })
