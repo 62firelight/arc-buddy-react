@@ -29,19 +29,11 @@ exports.searchDestinyPlayer = (req, res) => {
 
     destiny.SearchDestinyPlayerByBungieName(-1, bungieName)
         .then(response => {
-            const data = response.Response[0];
-
-            const membershipType = data.membershipType;
-            const membershipId = data.membershipId;
-
-            // console.log(membershipType, membershipId);
-            // console.log('\n\n');
-
+            const data = response.Response;
             res.status(200).send(data);
         })
         .catch(err => {
             console.error(`searchPlayer Error: ${err}`);
-
             res.status(404).send('Could not find specified Destiny player');
         });
 };
@@ -59,34 +51,7 @@ exports.getHistoricalStats = (req, res) => {
 
     destiny.GetHistoricalStatsForAccount(membershipId, membershipType)
         .then(response => {
-            // console.log(JSON.stringify(response.Response, null, 2));
-            // console.log(response.Response.mergedAllCharacters.results.allPvE.allTime);
-
-            let characterStats = {}
-
-            // fetch merged stats for account
-            characterStats.mergedStats = response.Response.mergedAllCharacters.merged.allTime;
-            characterStats.pveStats = response.Response.mergedAllCharacters.results.allPvE.allTime;
-            characterStats.pvpStats = response.Response.mergedAllCharacters.results.allPvP.allTime;
-
-            // fetch stats for individual characters
-            characterStats.characters = [];
-            const characters = response.Response.characters;
-            for (let [key, value] of Object.entries(characters)) {
-                if (value.deleted == false) {
-                    const character = {};
-                    character.characterId = value.characterId;
-                    character.mergedStats = value.merged.allTime;
-                    character.pveStats = value.results.allPvE.allTime;
-                    character.pvpStats = value.results.allPvP.allTime;
-
-                    characterStats.characters.push(character);
-                }
-            }
-
-            // console.log(characterStats);
-
-            res.status(200).send(characterStats);
+            res.status(200).send(response);
         })
         .catch(err => {
             console.log(err);
@@ -108,36 +73,7 @@ exports.getProfile = (req, res) => {
 
     destiny.GetProfile(membershipId, membershipType, {components: [100, 200]})
         .then(response => {
-            // console.log(JSON.stringify(response.Response, null, 2));
-            let profile = response.Response.profile.data.userInfo;
-            const characters = response.Response.characters.data;
-
-            let fetchedCharacters = [];
-
-            let i = 0;
-            for (let [key] of Object.entries(characters)) {
-                const fetchedCharacter = characters[key];
-
-                // console.log(`${raceMap[fetchedCharacter.raceType]} ${classMap[fetchedCharacter.classType]}`);
-
-                let newCharacter = {};
-                newCharacter = {};
-                newCharacter.characterId = fetchedCharacter.characterId;
-                newCharacter.race = raceMap[fetchedCharacter.raceType];
-                newCharacter.class = classMap[fetchedCharacter.classType];
-                newCharacter.light = fetchedCharacter.light;
-                newCharacter.emblem = `https://www.bungie.net${fetchedCharacter.emblemBackgroundPath}`;
-
-                fetchedCharacters.push(newCharacter);
-
-                i++;
-            }
-
-            // console.log(fetchedCharacters);
-
-            profile.characters = fetchedCharacters;
-
-            res.status(200).send(profile);
+            res.status(200).send(response);
         })
         .catch(err => {
             console.log(err);

@@ -7,6 +7,18 @@ import { Helper } from "../Helper";
 import { useMemo } from "react";
 import { Oval } from "react-loader-spinner";
 
+const classMap = {
+    0: "Titan",
+    1: "Hunter",
+    2: "Warlock",
+};
+
+const raceMap = {
+    0: "Human",
+    1: "Awoken",
+    2: "Exo",
+};
+
 export function Stats(props) {
     const searchParams = useSearchParams();
     const paramMembershipType = searchParams.get("membershipType");
@@ -31,7 +43,29 @@ export function Stats(props) {
         );
         try {
             const body = await getCharactersResponse.json();
-            foundProfile = body;
+
+            // fetch required details about Destiny profile
+            let profile = body.Response.profile.data.userInfo;
+
+            // fetch required details about each character
+            const characters = body.Response.characters.data;
+            let fetchedCharacters = [];
+            for (let [index] of Object.entries(characters)) {
+                const fetchedCharacter = characters[index];
+
+                let newCharacter = {};
+                newCharacter = {};
+                newCharacter.characterId = fetchedCharacter.characterId;
+                newCharacter.race = raceMap[fetchedCharacter.raceType];
+                newCharacter.class = classMap[fetchedCharacter.classType];
+                newCharacter.light = fetchedCharacter.light;
+                newCharacter.emblem = `https://www.bungie.net${fetchedCharacter.emblemBackgroundPath}`;
+
+                fetchedCharacters.push(newCharacter);
+            }
+
+            profile.characters = fetchedCharacters;
+            foundProfile = profile;
         } catch (error) {
             const status = await getCharactersResponse.status;
             console.log(error);
@@ -50,21 +84,30 @@ export function Stats(props) {
         try {
             const body = await getHistoricalStatsResponse.json();
 
-            foundProfile.mergedStats = body.mergedStats;
-            foundProfile.pveStats = body.pveStats;
-            foundProfile.pvpStats = body.pvpStats;
-            for (const character of body.characters) {
-                // Characters are not always listed in the right order,
-                // so we should manually match the character IDs just to
-                // be 100% sure
-                const matchedCharacter = foundProfile.characters.find(
-                    (newCharacter) =>
-                        character.characterId === newCharacter.characterId
-                );
+            foundProfile.mergedStats =
+                body.Response.mergedAllCharacters.merged.allTime;
+            foundProfile.pveStats =
+                body.Response.mergedAllCharacters.results.allPvE.allTime;
+            foundProfile.pvpStats =
+                body.Response.mergedAllCharacters.results.allPvP.allTime;
 
-                matchedCharacter.mergedStats = character.mergedStats;
-                matchedCharacter.pveStats = character.pveStats;
-                matchedCharacter.pvpStats = character.pvpStats;
+            const characters = body.Response.characters;
+            for (const character of characters) {
+                if (character.deleted === false) {
+                    // Characters are not always listed in the right order,
+                    // so we should manually match the character IDs just to
+                    // be 100% sure
+                    const matchedCharacter = foundProfile.characters.find(
+                        (newCharacter) =>
+                            character.characterId === newCharacter.characterId
+                    );
+
+                    matchedCharacter.mergedStats = character.merged.allTime;
+                    matchedCharacter.pveStats =
+                        character.results.allPvE.allTime;
+                    matchedCharacter.pvpStats =
+                        character.results.allPvP.allTime;
+                }
             }
 
             props.setProfile(foundProfile);
@@ -87,7 +130,12 @@ export function Stats(props) {
             <h2>
                 {props.profile.bungieGlobalDisplayName}
                 <span className="name-code">
-                    #{props.profile.bungieGlobalDisplayNameCode.toString().length === 3 ? "0" : ""}{props.profile.bungieGlobalDisplayNameCode}
+                    #
+                    {props.profile.bungieGlobalDisplayNameCode.toString()
+                        .length === 3
+                        ? "0"
+                        : ""}
+                    {props.profile.bungieGlobalDisplayNameCode}
                 </span>
             </h2>
         );

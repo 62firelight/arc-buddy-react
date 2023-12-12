@@ -12,7 +12,7 @@ export default function Search(props, { params }) {
         let foundProfile = undefined;
         try {
             const body = await getBungieNameResponse.json();
-            foundProfile = body;
+            foundProfile = body[0];
             router.push(
                 `?membershipType=${foundProfile.membershipType}&membershipId=${foundProfile.membershipId}`
             );
