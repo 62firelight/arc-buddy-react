@@ -1,6 +1,6 @@
 # Arc Buddy 
 
-Arc Buddy is a web application that uses the [Bungie.Net API](https://bungie-net.github.io/) to look up statistics for [Destiny 2](https://store.steampowered.com/app/1085660/Destiny_2/) players. This is meant to be a more lightweight rewrite of the [original Arc Buddy app](https://github.com/62firelight/ArcBuddy-349) which uses React rather than Angular for the front-end.
+Arc Buddy is a web application that uses the [Bungie.Net API](https://bungie-net.github.io/) to look up statistics for [Destiny 2](https://store.steampowered.com/app/1085660/Destiny_2/) players. This is meant to be a more lightweight rewrite of the [original Arc Buddy app](https://github.com/62firelight/ArcBuddy-349) that uses React rather than Angular for the front-end.
 
 Contributions are welcome, but keep in mind that this project was initially built as part of a University course. It was mainly for me to practice calling an external API and then transforming the responses into something displayable on a web page. I also used this application to practice developing with React, Angular and Express.js. 
 
@@ -15,9 +15,9 @@ Contributions are welcome, but keep in mind that this project was initially buil
 
 ## Using the Application
 
-You can search for a Bungie Name using the provided search bar. A Bungie Name takes after the format `Guardian#1234`. You can use my Bungie name (62firelight#8173) to test the application. Once finished typing a Bungie Name, you can push "Enter" or click the "Search" to begin a search. 
+You can search for a Bungie Name using the provided search bar. A Bungie Name takes after the format `Guardian#1234`. You can use my Bungie name (62firelight#8173) to test the application. Once finished typing a Bungie Name, you can push "Enter" or click the "Search" button to begin a search. 
 
-An unsuccessful search should return an error message. Otherwise, if the search was successful, you should see the stats for the Destiny 2 player that you've searched for, along with a few filters on the left-hand side.
+An unsuccessful search should return an error message. If the search was successful, you should see the stats for the Destiny 2 player that you've searched for, along with a few filters on the left-hand side.
 
 ## Special Thanks
 
