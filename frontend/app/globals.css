@@ -164,6 +164,10 @@ form * {
   justify-content: center;
 }
 
+.weapon-options * {
+  margin: 0.5em;
+}
+
 .stat {
   flex-basis: 20%;
   padding: 1em;

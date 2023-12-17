@@ -13,7 +13,8 @@ import Stat from "./Stat";
 import { useState } from "react";
 
 export function StatSection(props) {
-    const [viewAsGraph, setViewAsGraph] = useState(false);
+    const [viewAsChart, setViewAsChart] = useState(false);
+    const [weaponFilter, setWeaponFilter] = useState("all");
 
     function formatName(name) {
         return props.sectionStatNames.get(name);
@@ -49,9 +50,14 @@ export function StatSection(props) {
 
             let formattedDisplayValue = undefined;
             if (stat === "secondsPlayed") {
-                formattedDisplayValue = formatValue(props.stats[stat].basic.value, true);
+                formattedDisplayValue = formatValue(
+                    props.stats[stat].basic.value,
+                    true
+                );
             } else {
-                formattedDisplayValue = formatValue(props.stats[stat].basic.displayValue);
+                formattedDisplayValue = formatValue(
+                    props.stats[stat].basic.displayValue
+                );
             }
 
             return (
@@ -67,9 +73,10 @@ export function StatSection(props) {
         }
     });
 
-    let weaponGraphData = undefined;
+    let weaponChartData = undefined;
     if (props.sectionName === "Weapon Kills") {
-        weaponGraphData = Array.from(props.sectionStatNames.keys()).map(
+        // using flat map to reduce the number of weapon types in the array (but only if filtered)
+        weaponChartData = Array.from(props.sectionStatNames.keys()).flatMap(
             (stat) => {
                 // Only show stats that are known
                 if (
@@ -77,15 +84,34 @@ export function StatSection(props) {
                     props.stats[stat] !== undefined
                 ) {
                     hasUndefined = false; // as there is at least one stat in this section
-                    return {
-                        name: formatName(stat),
-                        value: props.stats[stat].basic.value,
-                    };
+
+                    const formattedName = formatName(stat);
+
+                    if (
+                        weaponFilter === "all" ||
+                        (weaponFilter === "primary" &&
+                            Helper.primaryWeapons.has(formattedName)) ||
+                        (weaponFilter === "special" &&
+                            Helper.specialWeapons.has(formattedName)) ||
+                        (weaponFilter === "power" &&
+                            Helper.powerWeapons.has(formattedName))
+                    ) {
+                        return {
+                            name: formattedName,
+                            value: props.stats[stat].basic.value,
+                        };
+                    } else {
+                        return [];
+                    }
                 } else {
-                    return;
+                    return [];
                 }
             }
         );
+    }
+
+    function handleChange(e) {
+        setWeaponFilter(e.target.value);
     }
 
     // Hide section name if there are no known stats for it
@@ -97,18 +123,42 @@ export function StatSection(props) {
                 <h3>{props.sectionName}</h3>
                 <hr />
                 {props.sectionName === "Weapon Kills" && (
-                    <button onClick={() => setViewAsGraph(!viewAsGraph)}>
-                        {viewAsGraph === false
-                            ? "View as Graph"
-                            : "View as Text"}
-                    </button>
+                    <div className="weapon-options">
+                        <button onClick={() => setViewAsChart(!viewAsChart)}>
+                            {viewAsChart === false
+                                ? "View as Chart"
+                                : "View as Text"}
+                        </button>
+                        {viewAsChart === true ? (
+                            <select
+                                name="weapon-chart-filter"
+                                id="weapon-chart-filter-select"
+                                value={weaponFilter}
+                                onChange={handleChange}
+                            >
+                                <option value="all">All Types</option>
+                                <option value="primary">Primary</option>
+                                <option value="special">Special</option>
+                                <option value="power">Power</option>
+                            </select>
+                        ) : (
+                            ""
+                        )}
+                    </div>
                 )}
-                {viewAsGraph === false ? (
+                {viewAsChart === false ? (
                     <div className="stat-section">{statList}</div>
                 ) : (
-                    <ResponsiveContainer width="100%" minHeight={400}>
-                        <BarChart data={weaponGraphData}>
-                            <XAxis dataKey="name" interval={0} angle={-30} textAnchor="end" minTickGap={1000} height={90} />
+                    <ResponsiveContainer minHeight={400}>
+                        <BarChart data={weaponChartData}>
+                            <XAxis
+                                dataKey="name"
+                                interval={0}
+                                angle={-30}
+                                textAnchor="end"
+                                minTickGap={1000}
+                                height={90}
+                            />
                             <YAxis />
                             <Tooltip />
                             <Bar dataKey="value" fill="#82ca9d" />
