@@ -173,6 +173,12 @@ form * {
   padding: 1em;
 }
 
+.footer {
+  display: flex;
+  flex-flow: column wrap;
+  margin: 1em 0 0 0;
+}
+
 @media (min-width: 500px) {
   .stats-container {
     flex-flow: row nowrap;

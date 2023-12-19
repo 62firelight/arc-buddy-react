@@ -8,6 +8,7 @@ import { Stats } from "./components/Stats";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Links from "./components/Links";
+import { Footer } from "./components/Footer";
 
 export default function Home() {
     const [profile, setProfile] = useState(undefined);
@@ -138,6 +139,7 @@ export default function Home() {
                     />
                 </div>
             </div>
+            <Footer />
         </div>
     );
 }
