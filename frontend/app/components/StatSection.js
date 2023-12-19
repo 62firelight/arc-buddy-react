@@ -11,8 +11,10 @@ import {
 import { Helper } from "../Helper";
 import Stat from "./Stat";
 import { useState } from "react";
+import { useWindowWidth } from "@react-hook/window-size";
 
 export function StatSection(props) {
+    const windowWidth = useWindowWidth();
     const [viewAsChart, setViewAsChart] = useState(false);
     const [weaponFilter, setWeaponFilter] = useState("all");
 
@@ -149,15 +151,15 @@ export function StatSection(props) {
                 {viewAsChart === false ? (
                     <div className="stat-section">{statList}</div>
                 ) : (
-                    <ResponsiveContainer minHeight={400}>
+                    <ResponsiveContainer minWidth={320} minHeight={400}>
                         <BarChart data={weaponChartData}>
                             <XAxis
                                 dataKey="name"
                                 interval={0}
-                                angle={-30}
+                                angle={windowWidth > 1024 ? -30 : -90}
                                 textAnchor="end"
                                 minTickGap={1000}
-                                height={90}
+                                height={100}
                             />
                             <YAxis />
                             <Tooltip />
