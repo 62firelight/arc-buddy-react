@@ -94,7 +94,7 @@ export default function Home() {
     }
 
     return (
-        <div>
+        <div className="stats-page">
             <h1 id="app-heading" onClick={reset}>
                 Arc Buddy
             </h1>
